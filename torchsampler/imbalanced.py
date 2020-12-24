@@ -41,6 +41,8 @@ class ImbalancedDatasetSampler(torch.utils.data.sampler.Sampler):
         self.weights = torch.DoubleTensor(weights)
 
     def _get_label(self, dataset, idx):
+        return dataset[idx]['label']
+        '''
         if self.callback_get_label:
             return self.callback_get_label(dataset, idx)
         elif isinstance(dataset, torchvision.datasets.MNIST):
@@ -51,6 +53,7 @@ class ImbalancedDatasetSampler(torch.utils.data.sampler.Sampler):
             return dataset.dataset.imgs[idx][1]
         else:
             raise NotImplementedError
+        '''
                 
     def __iter__(self):
         return (self.indices[i] for i in torch.multinomial(
